@@ -1,0 +1,105 @@
+Gauss elimination
+
+#include<stdio.h>
+int main()
+{
+    int i,j,k,n;
+    float A[20][20],c,x[10],sum=0.0;
+    printf("\nEnter the order of matrix: ");
+    scanf("%d",&n);
+    printf("\nEnter the elements of augmented matrix row-wise:\n\n");
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=(n+1); j++)
+        {
+            printf("A[%d][%d] : ", i,j);
+            scanf("%f",&A[i][j]);
+        }
+    }
+    for(j=1; j<=n; j++) /* loop for the generation of upper triangular matrix*/
+    {
+        for(i=1; i<=n; i++)
+        {
+            if(i>j)
+            {
+                c=A[i][j]/A[j][j];
+                for(k=1; k<=n+1; k++)
+                {
+                    A[i][k]=A[i][k]-c*A[j][k];
+                }
+            }
+        }
+    }
+    x[n]=A[n][n+1]/A[n][n];
+    /* this loop is for backward substitution*/
+    for(i=n-1; i>=1; i--)
+    {
+        sum=0;
+        for(j=i+1; j<=n; j++)
+        {
+            sum=sum+A[i][j]*x[j];
+        }
+        x[i]=(A[i][n+1]-sum)/A[i][i];
+    }
+    printf("\nThe solution is: \n");
+    for(i=1; i<=n; i++)
+    {
+        printf("\nx%d=%f\t",i,x[i]); /* x1, x2, x3 are the required solutions*/
+    }
+    return(0);
+}
+
+Jacobi iterative method
+Step 1. Read the coefficients aij, i,j = 1, 2, …, n and the right hand vector bi, i= 1, 2, …, n of the system of equations and error tolerance ϵ.
+Step 2. Rearrange the given equations, if possible, such that the system becomes diagonally dominant.
+Step 3. Rewrite the ith equation as
+ 
+
+Step 4. Set the initial solution as
+
+Step 5. Calculate the new value xi(n) of xi as
+ 
+
+Step 6. If | xi – xi(n)| < ϵ for all i, then goto Step 7 else xi = xi(n) for all i and goto step 5.
+Step 7. Print xi(n) , i = 1, 2, …, n as solution
+
+Gauss seidel method
+
+1. Start
+
+
+2. Arrange given system of linear equations in 
+   diagonally dominant form
+
+
+3. Read tolerable error (e)
+
+
+4. Convert the first equation in terms of first variable, 
+second equation in terms of second variable and so on. 
+
+
+5. Set initial guesses for x0,  y0, z0 and so on
+
+
+6. Substitute value of y0, z0 ... from step 5 in 
+   first equation obtained from step 4 to calculate 
+   new value of x1. Use x1, z0, u0 .... in second equation 
+   obtained from step 4 to caluclate new value of y1. 
+   Similarly, use x1, y1, u0... to find new z1 and so on.  
+
+
+7. If| x0 - x1| > e and | y0 - y1| > e and | z0 - z1|  > e 
+   and so on then goto step 9
+
+
+8. Set x0=x1, y0=y1, z0=z1 and so on and goto step 6
+
+
+9. Print value of x1, y1, z1 and so on
+
+
+10. Stop
+
+
+
